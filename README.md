@@ -1,2 +1,56 @@
-# atmosphere
+# Atmosphere
 A space base creating game for the libGDX game jam
+
+# Planning
+- class Station
+  - int id
+  - String name
+  - StationType stationType
+- enum StationType
+  - Ground
+  - Space
+- class StationEntitySchemaKey <ValueType>
+  - *// Didn't use Map so native types can be stored*
+  - final ValueType[] groundValue
+  - final ValueType[] spaceValue
+  - ValueType getValue(StationType stationType, int level)
+- class StationEntitySchemaString extends StationEntitySchemaKey<String>
+- class StationEntitySchemaFloat extends StationEntitySchemaKey<float>
+- class StationEntitySchemaInt extends StationEntitySchemaKey<int>
+- class StationEntitySchema
+  - *// Loaded in via a json file*
+  - static Map<String, StationEntitySchemaKey<Object>> ParseSchemaFile(String filePath)
+  - StationEntitySchema()
+    - Assign fields to fields gotten by ParseSchemaFile()
+  - final StationEntitySchemaString name
+  - final StationEntitySchemaInt maxLevel
+  - final StationEntitySchemaInt width
+  - final StationEntitySchemaInt height
+- class StationEntity
+  - static final StationEntitySchema SCHEMA
+  - int level
+  - int stationId
+  - Vector2I position
+  - Station getStation()
+- class SpacecraftConnector extends StationEntity
+  - **SCHEMA**
+    - int maxSize
+    - int maxWeight
+    - int maxThrust
+  - Spacecraft connectedSpacecraft
+- class RocketAssemblyBuilding extends StationEntity
+  - **SCHEMA**
+    - int maxSize
+- class CrewQuarters extends StationEntity
+  - **SCHEMA**
+    - int maxCrew
+  - CrewMember[] crewMembers
+- class Spacecraft
+  - int size
+  - int weight
+  - int thrust
+  - int storage
+- class CrewMember
+  - String name
+  - int health
+  - *// Add skills*
